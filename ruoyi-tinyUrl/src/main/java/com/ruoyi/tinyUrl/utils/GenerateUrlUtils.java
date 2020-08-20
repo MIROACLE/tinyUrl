@@ -21,7 +21,7 @@ public class GenerateUrlUtils {
      */
     public synchronized static String generateUrl() {
         String encode = encode();
-        int randomO = RandomUtils.nextInt(1, 62);
+        int randomO = RandomUtils.nextInt(0, 61);
         String substring = StringUtils.substring(encode, 3);
         return chars[randomO] + substring;
     }
