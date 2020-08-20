@@ -66,6 +66,7 @@ public class TinyUrlServiceImpl implements TinyUrlService {
         //设置过期时间
         if (!ObjectUtils.isEmpty(tinyUrlVo.getExpireDate()))
             redisCache.setCacheObject(generateUrl, tinyUrl.getOriginalUrl(), tinyUrlVo.getExpireDate(), TimeUnit.MINUTES);
+         else  redisCache.setCacheObject(generateUrl, tinyUrl.getOriginalUrl());
         tinyUrl.setTinyUrlId(tinyUrlId);
         return tinyUrl;
     }
