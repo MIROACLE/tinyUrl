@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.tinyUrl.mapper.TinyUrlMapper">
+
+    <resultMap type="TinyUrl" id="TinyUrlResult">
+        <result property="tinyUrlId" column="tiny_url_id"/>
+        <result property="originalUrl" column="original_url"/>
+        <result property="url" column="url"/>
+        <result property="expireTime" column="expire_time"/>
+        <result property="status" column="status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <sql id="selectTinyUrlVo">
+        select tiny_url_id, expire_time, create_by, create_time,url
+		from tiny_url
+    </sql>
+
+    <select id="selectTinyUrlList" parameterType="tinyUrlVo" resultMap="TinyUrlResult">
+        <include refid="selectTinyUrlVo"/>
+        <where>
+        </where>
+    </select>
+    
+    <insert id="insertTinyUrl" parameterType="TinyUrl" useGeneratedKeys="true" keyProperty="tinyUrlId">
+        insert into tiny_url (
+        <if test="tinyUrlId != null and tinyUrlId != '' ">tiny_url_id,</if>
+        <if test="originalUrl != null and originalUrl != '' ">original_url,</if>
+        <if test="url != null and url != '' ">url,</if>
+        <if test="expireTime != null">expire_time,</if>
+        <if test="remark != null and remark != ''">remark,</if>
+        <if test="status != null and status != ''">status,</if>
+        <if test="createBy != null and createBy != ''">create_by,</if>
+        create_time
+        )values(
+        <if test="tinyUrlId != null and tinyUrlId != ''">#{tinyUrlId},</if>
+        <if test="originalUrl != null and originalUrl != ''">#{originalUrl},</if>
+        <if test="url != null and url != ''">#{url},</if>
+        <if test="expireTime != null">#{expireTime},</if>
+        <if test="remark != null and remark != ''">#{remark},</if>
+        <if test="status != null and status != ''">#{status},</if>
+        <if test="createBy != null and createBy != ''">#{createBy},</if>
+        sysdate()
+        )
+    </insert>
+
+    <delete id="removeUrlById" parameterType="Long">
+        delete from tiny_url where tiny_url_id = #{tinyUrlId}
+    </delete>
+</mapper> 
